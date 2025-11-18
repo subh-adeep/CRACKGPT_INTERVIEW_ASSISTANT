@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📋 Setup Interview - Crack-GPT</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>📋 Interview Setup</h1>
+      <p class="subtitle">Upload your documents and configure your interview settings.</p>
+
+      <!-- Document Upload Section -->
+      <div class="upload-section">
+        <div class="upload-area">
+          <h3>📄 Upload Your Resume</h3>
+          <div class="file-upload">
+            <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" style="display: none;">
+            <button id="resumeBtn" class="upload-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+              </svg>
+              Choose PDF or Word File
+            </button>
+            <span id="resumeFileName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="upload-area">
+          <h3>💼 Upload Job Description</h3>
+          <div class="file-upload">
+            <input type="file" id="jobFile" accept=".pdf,.doc,.docx" style="display: none;">
+            <button id="jobBtn" class="upload-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+              </svg>
+              Choose PDF or Word File
+            </button>
+            <span id="jobFileName">No file selected</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Category Selection -->
+      <div class="category-section">
+        <h3>🎯 Select Interview Type</h3>
+        <div class="category-selection">
+          <label for="jobCategory">Job Category:</label>
+          <select id="jobCategory">
+            <option value="">Select a category...</option>
+          </select>
+
+          <label for="jobRole">Specific Role:</label>
+          <select id="jobRole" disabled>
+            <option value="">Select a role...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="settings-section">
+        <h3>⚙️ Interview Settings</h3>
+        <div class="settings-grid">
+          <div>
+            <label for="duration">Duration:</label>
+            <select id="duration">
+              <option value="10">10 minutes</option>
+              <option value="15" selected>15 minutes</option>
+              <option value="20">20 minutes</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="voice">AI Voice:</label>
+            <select id="voice">
+              <option value="en-IN-Neural2-B">English India - Male</option>
+              <option value="en-IN-Neural2-A">English India - Female</option>
+              <option value="en-US-Neural2-A">English US - Female</option>
+              <option value="en-US-Neural2-C">English US - Male</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="backBtn" class="secondary-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+          </svg>
+          Back to Login
+        </button>
+        <button id="startInterview" class="primary-btn" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.799 6.765C20.201 7.348 20.058 8.117 19.475 8.519L8.004 15.934C7.735 16.123 7.398 16.216 7.059 16.199L2.855 16.019C2.2 15.992 1.696 15.432 1.768 14.779L1.948 10.575C1.965 10.236 2.058 9.899 2.247 9.63L13.718 2.215C14.301 1.813 15.07 1.956 15.472 2.539L19.799 6.765ZM12.808 11.192L10.571 8.955L3.273 13.778L3.241 15.759L5.222 15.727L9.045 8.429L8.293 7.677L14.981 8.429L16.728 13.927L15.272 15.383L12.808 11.192Z"/>
+          </svg>
+          Continue to Permissions
+        </button>
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions">
+        <h4>🚀 How it works:</h4>
+        <ol>
+          <li>Upload your resume and the job description</li>
+          <li>Select the appropriate job category and role</li>
+          <li>Configure interview duration and AI voice preferences</li>
+          <li>Grant camera and microphone permissions when prompted</li>
+          <li>Start your hands-free AI interview practice</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Reset Handler -->
+  <script>
+    // Global reset function for page refreshes
+    function resetInterviewSession() {
+        console.log('Page refresh detected - resetting session...');
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = '/';
+    }
+
+    // Handle browser refresh/back button navigation
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0] && window.performance.getEntriesByType('navigation')[0].type === 'reload')) {
+            console.log('Page refresh/browser navigation detected, resetting...');
+            resetInterviewSession();
+        }
+    });
+
+    // Handle manual refresh (F5/Ctrl+R)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            console.log('Manual refresh detected, resetting...');
+            localStorage.clear();
+            sessionStorage.clear();
+            return; // Allow refresh but clear data
+        }
+    });
+
+    // Check if coming from results page - if so, reset automatically
+    if (document.referrer.includes('/results')) {
+        console.log('Coming from results page, auto-resetting...');
+        resetInterviewSession();
+    }
+  </script>
+  <script src="/js/setup.js"></script>
+</body>
+</html>

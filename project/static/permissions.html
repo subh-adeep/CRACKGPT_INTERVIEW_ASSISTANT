@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Device Permissions - AI Interview Assistant</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🔐 Device Permissions</h1>
+      <p class="subtitle">Please grant access to your camera and microphone to start the interview.</p>
+
+      <!-- Permission Status Container -->
+      <div class="permissions-container">
+        <!-- Camera Permission -->
+        <div class="permission-item">
+          <div class="permission-header">
+            <div class="permission-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z"/>
+              </svg>
+            </div>
+            <div class="permission-info">
+              <h3>📹 Camera Access</h3>
+              <p>Needed to record your interview video</p>
+            </div>
+          </div>
+          <div class="permission-status">
+            <span id="cameraStatus" class="status pending">Checking...</span>
+          </div>
+        </div>
+
+        <!-- Microphone Permission -->
+        <div class="permission-item">
+          <div class="permission-header">
+            <div class="permission-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+              </svg>
+            </div>
+            <div class="permission-info">
+              <h3>🎤 Microphone Access</h3>
+              <p>Needed to capture your voice responses</p>
+            </div>
+          </div>
+          <div class="permission-status">
+            <span id="microphoneStatus" class="status pending">Checking...</span>
+          </div>
+        </div>
+
+        <!-- Speaker Permission (for audio output) -->
+        <div class="permission-item">
+          <div class="permission-header">
+            <div class="permission-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3,9V15H7L12,20V4L7,9H3M16,9H14V15H16M19,9H17V15H19M22,9H20V15H22V9Z"/>
+              </svg>
+            </div>
+            <div class="permission-info">
+              <h3>🔊 Audio Output</h3>
+              <p>Needed to hear AI questions and feedback</p>
+            </div>
+          </div>
+          <div class="permission-status">
+            <span id="speakerStatus" class="status available">Available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Preview -->
+      <div class="video-preview">
+        <h3>📹 Camera Preview</h3>
+        <div class="video-container">
+          <video id="previewVideo" autoplay muted playsinline style="display: none;"></video>
+          <div id="videoPlaceholder" class="video-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+              <path d="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z"/>
+            </svg>
+            <p>Camera feed will appear here</p>
+          </div>
+        </div>
+        <div class="audio-indicator">
+          <div class="audio-level">
+            <span id="audioLevel">🎤 Audio Level: <span id="audioValue">--</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testing Section -->
+      <div class="testing-section">
+        <h3>🧪 Test Your Setup</h3>
+        <div class="test-buttons">
+          <button id="testAudioBtn" class="test-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3,9V15H7L12,20V4L7,9H3M16,9H14V15H16M19,9H17V15H19M22,9H20V15H22V9Z"/>
+            </svg>
+            Test Audio
+          </button>
+          <button id="testVideoBtn" class="test-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z"/>
+            </svg>
+            Test Video
+          </button>
+        </div>
+        <div id="testFeedback" class="test-feedback"></div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <button id="backBtn" class="secondary-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+          </svg>
+          Back to Setup
+        </button>
+        <button id="proceedBtn" class="primary-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+          </svg>
+          Start Interview
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <audio id="testAudio" preload="none"></audio>
+
+  <!-- Global Reset Handler -->
+  <script>
+    // Global reset function for page refreshes
+    function resetInterviewSession() {
+        console.log('Page refresh detected - resetting session...');
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = '/';
+    }
+
+    // Handle browser refresh/back button navigation
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0] && window.performance.getEntriesByType('navigation')[0].type === 'reload')) {
+            console.log('Page refresh/browser navigation detected, resetting...');
+            resetInterviewSession();
+        }
+    });
+
+    // Handle manual refresh (F5/Ctrl+R)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            console.log('Manual refresh detected, resetting...');
+            localStorage.clear();
+            sessionStorage.clear();
+            return; // Allow refresh but clear data
+        }
+    });
+
+    // Check if coming from results page - if so, reset automatically
+    if (document.referrer.includes('/results')) {
+        console.log('Coming from results page, auto-resetting...');
+        resetInterviewSession();
+    }
+  </script>
+
+  <script src="/js/permissions.js"></script>
+</body>
+</html>

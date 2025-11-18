@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎙️ Interview in Progress - AI Interview Assistant</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Preparing Overlay (will be hidden when interview starts) -->
+  <div id="overlay" class="interview-overlay">
+    <div class="overlay-content">
+      <div id="overlayIcon" class="overlay-icon">🎙️</div>
+      <div id="overlayMessage" class="overlay-message">Preparing interview...</div>
+    </div>
+  </div>
+
+  <div class="interview-container">
+    <!-- Main Interview Area (mostly blank with center icon) -->
+    <div class="interview-main">
+      <!-- AI Avatar/Icon in center -->
+      <div class="ai-avatar" id="aiAvatar">
+        <div class="avatar-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16,4A4,4 0 0,1 20,8A4,4 0 0,1 16,12A4,4 0 0,1 12,8A4,4 0 0,1 16,4M16,6A2,2 0 0,0 14,8A2,2 0 0,0 16,10A2,2 0 0,0 18,8A2,2 0 0,0 16,6M4,18A4,4 0 0,1 8,14A4,4 0 0,1 12,18A4,4 0 0,1 8,22A4,4 0 0,1 4,18M8,16A2,2 0 0,0 6,18A2,2 0 0,0 8,20A2,2 0 0,0 10,18A2,2 0 0,0 8,16Z"/>
+          </svg>
+        </div>
+
+        <!-- Sound visualization icon (shown when AI is speaking) -->
+        <div class="sound-icon" id="soundIcon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3,9V15H7L12,20V4L7,9H3M16,9H14V15H16M19,9H17V15H19M22,9H20V15H22V9Z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Status Text (minimal, no AI speech text) -->
+      <div class="interview-status">
+        <span id="statusText">Initializing...</span>
+      </div>
+    </div>
+
+    <!-- User Video (bottom right corner) -->
+    <div class="user-video-wrapper">
+      <video id="interviewVideo" autoplay muted playsinline></video>
+      <div class="video-overlays">
+        <div class="video-timer" id="timeRemaining">15:00</div>
+        <div class="video-status">
+          <div class="status-dot recording"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finish Interview Button (bottom center) -->
+    <div class="interview-controls">
+      <button id="finishBtn" class="finish-call-btn" title="End Interview">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+          <path d="M6.62,10.79c1.44,2.83,3.76,5.14,6.59,6.59l2.2-2.2c0.27-0.27,0.67-0.36,1.02-0.24 c1.12,0.37,2.33,0.57,3.57,0.57c0.55,0,1,0.45,1,1V20c0,0.55-0.45,1-1,1c-9.39,0-17-7.61-17-17c0-0.55,0.45-1,1-1h3.5 c0.55,0,1,0.45,1,1c0,1.25,0.2,2.45,0.57,3.57c0.11,0.35,0.03,0.74-0.25,1.02L6.62,10.79z"/>
+          <path d="M21,12c0-0.55-0.45-1-1-1l-3.5,0c-0.55,0-1,0.45-1,1l0,0c0,0.55,0.45,1,1,1L21,12z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Audio Level Indicator (small, bottom left) -->
+    <div class="audio-level-indicator">
+      <div class="audio-bars-compact">
+        <div class="audio-bar-compact"></div>
+        <div class="audio-bar-compact"></div>
+        <div class="audio-bar-compact"></div>
+        <div class="audio-bar-compact"></div>
+        <div class="audio-bar-compact"></div>
+      </div>
+      <span id="audioLevel" class="audio-level-text">--</span>
+    </div>
+
+    <!-- Coding Toggle Button (top right, small) -->
+    <div class="coding-toggle" id="codingToggle">
+      <button class="coding-toggle-btn" id="codingToggleBtn" title="Start Coding Challenge" onclick="toggleCodingPanel()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Coding Panel (hidden by default, slides down from top right) -->
+    <div class="coding-panel" id="codingPanel">
+      <div class="coding-panel-header">
+        <div class="coding-panel-info">
+          <h4>Coding Challenge</h4>
+          <div class="coding-timer" id="codingTimer">00:00</div>
+        </div>
+        <button class="coding-close-btn" id="codingCloseBtn" title="Close Coding" onclick="toggleCodingPanel()">✕</button>
+      </div>
+
+      <div class="coding-panel-content">
+        <div class="coding-input-section">
+          <textarea
+            id="codingInput"
+            class="coding-textarea"
+            placeholder="Write your code here..."
+            spellcheck="false"
+            autocomplete="off"
+          ></textarea>
+        </div>
+
+        <div class="coding-controls">
+          <button id="startCodingBtn" class="start-coding-btn" onclick="startCodingChallenge()">Start Coding</button>
+          <button id="submitCodeBtn" class="submit-code-btn" disabled onclick="submitCodeSolution()">Submit Code</button>
+        </div>
+
+        <div class="coding-instructions">
+          <p><strong>Instructions:</strong></p>
+          <ol>
+            <li>Click "Start Coding" to begin (5 minutes)</li>
+            <li>Write your solution in the text area</li>
+            <li>Click "Submit Code" when ready</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Player (Hidden) -->
+  <audio id="audioPlayer" playsinline style="display: none;"></audio>
+
+  <!-- External Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/ort.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.7/dist/bundle.min.js"></script>
+
+  <!-- Socket.IO client -->
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="" crossorigin="anonymous"></script>
+
+  <!-- Global Reset Handler -->
+  <script>
+    // Global reset function for page refreshes
+    function resetInterviewSession() {
+        console.log('Interview page refresh detected - resetting session...');
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = '/';
+    }
+
+    // Handle browser refresh/back button navigation
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0] && window.performance.getEntriesByType('navigation')[0].type === 'reload')) {
+            console.log('Page refresh/browser navigation detected during interview, resetting...');
+            resetInterviewSession();
+        }
+    });
+
+    // Handle manual refresh (F5/Ctrl+R)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            console.log('Manual refresh detected during interview, resetting...');
+            localStorage.clear();
+            sessionStorage.clear();
+            return; // Allow refresh but clear data
+        }
+    });
+
+    // Check if coming from results page - if so, reset automatically
+    if (document.referrer.includes('/results')) {
+        console.log('Coming from results page, auto-resetting interview...');
+        resetInterviewSession();
+    }
+
+    // Direct coding panel toggle function for button onclick attribute
+    function toggleCodingPanel() {
+        console.log('DIRECT: Toggle coding panel called');
+        const panel = document.getElementById('codingPanel');
+        const button = document.getElementById('codingToggleBtn');
+
+        if (panel) {
+            const isVisible = panel.classList.contains('show');
+            console.log(`DIRECT: Panel visibility ${isVisible} -> ${!isVisible}`);
+
+            if (isVisible) {
+                panel.classList.remove('show');
+                if (button) button.style.borderColor = '#334155';
+                console.log('DIRECT: Panel closed');
+            } else {
+                panel.classList.add('show');
+                if (button) button.style.borderColor = '#60a5fa';
+                console.log('DIRECT: Panel opened');
+            }
+        } else {
+            console.error('DIRECT: codingPanel not found!');
+        }
+    }
+
+    // Coding challenge global functions for direct onclick handlers
+    async function startCodingChallenge() {
+        console.log('DIRECT: Start coding challenge called');
+
+        try {
+            const response = await fetch('/api/start_coding', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+            console.log('DIRECT: Coding challenge response:', data);
+
+            if (response.ok && data.ok) {
+                // Update UI elements
+                const btn = document.getElementById('startCodingBtn');
+                const submitBtn = document.getElementById('submitCodeBtn');
+                if (btn) btn.disabled = true;
+                if (btn) btn.textContent = 'Coding Active';
+                if (submitBtn) submitBtn.disabled = false;
+
+                console.log('DIRECT: Coding challenge started successfully');
+                alert('Coding challenge started! You have 5 minutes.');
+            } else {
+                console.error('DIRECT: Failed to start coding challenge');
+                alert('Failed to start coding challenge. Please try again.');
+            }
+        } catch (error) {
+            console.error('DIRECT: Error starting coding challenge:', error);
+            alert('Error starting coding challenge. Please check console.');
+        }
+    }
+
+    async function submitCodeSolution() {
+        console.log('DIRECT: Submit code solution called');
+
+        const codeInput = document.getElementById('codingInput');
+        if (!codeInput) {
+            alert('Code input not found!');
+            return;
+        }
+
+        const code = codeInput.value.trim();
+        if (!code) {
+            alert('Please enter some code before submitting.');
+            return;
+        }
+
+        console.log('DIRECT: Submitting code:', code.substring(0, 50) + '...');
+
+        try {
+            const response = await fetch('/api/submit_code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, lang: 'text' })
+            });
+
+            const data = await response.json();
+            console.log('DIRECT: Submit response:', data);
+
+            if (response.ok && data.ok) {
+                // Success - clear form and close panel
+                codeInput.value = '';
+                toggleCodingPanel();
+                alert('Code submitted successfully! Returning to interview.');
+                console.log('DIRECT: Code submitted successfully');
+            } else {
+                console.error('DIRECT: Failed to submit code');
+                alert('Failed to submit code. Please try again.');
+            }
+        } catch (error) {
+            console.error('DIRECT: Error submitting code:', error);
+            alert('Error submitting code. Please check console.');
+        }
+    }
+
+    // Make functions globally available immediately
+    window.toggleCodingPanel = toggleCodingPanel;
+    window.startCodingChallenge = startCodingChallenge;
+    window.submitCodeSolution = submitCodeSolution;
+  </script>
+
+  <!-- Application Scripts -->
+  <script src="/js/audio.js"></script>
+  <script src="/js/timer.js"></script>
+  <script src="/js/coding.js"></script> <!-- Load coding.js early -->
+  <script src="/js/interview_ws.js"></script>
+  <script src="/js/interview.js"></script>
+</body>
+</html>

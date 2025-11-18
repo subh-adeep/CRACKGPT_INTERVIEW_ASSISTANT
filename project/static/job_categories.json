@@ -1,0 +1,110 @@
+{
+  "categories": [
+    {
+      "name": "Software Development",
+      "roles": [
+        "Full Stack Developer",
+        "Backend Developer",
+        "Frontend Developer",
+        "Mobile App Developer",
+        "DevOps Engineer",
+        "Software Architect",
+        "Data Engineer",
+        "API Developer",
+        "System Analyst",
+        "Technical Lead"
+      ]
+    },
+    {
+      "name": "Data Science & Analytics",
+      "roles": [
+        "Data Scientist",
+        "Data Analyst",
+        "Machine Learning Engineer",
+        "AI Engineer",
+        "Business Intelligence Analyst",
+        "Data Visualization Specialist",
+        "Statistics Specialist",
+        "Data Architect"
+      ]
+    },
+    {
+      "name": "Engineering",
+      "roles": [
+        "Civil Engineer",
+        "Mechanical Engineer",
+        "Electrical Engineer",
+        "Structural Engineer",
+        "Chemical Engineer",
+        "Aerospace Engineer",
+        "Software Engineer",
+        "Systems Engineer"
+      ]
+    },
+    {
+      "name": "Business & Finance",
+      "roles": [
+        "Financial Analyst",
+        "Business Analyst",
+        "Investment Banker",
+        "Financial Planner",
+        "Accountant",
+        "Auditor",
+        "Risk Analyst",
+        "Management Consultant"
+      ]
+    },
+    {
+      "name": "Healthcare & Life Sciences",
+      "roles": [
+        "Medical Doctor",
+        "Research Scientist",
+        "Pharmacist",
+        "Nurse Practitioner",
+        "Clinical Researcher",
+        "Biomedical Engineer",
+        "Healthcare Administrator",
+        "Public Health Specialist"
+      ]
+    },
+    {
+      "name": "Marketing & Sales",
+      "roles": [
+        "Marketing Manager",
+        "Digital Marketing Specialist",
+        "Sales Representative",
+        "Brand Manager",
+        "Content Creator",
+        "SEO Specialist",
+        "Product Marketing Manager",
+        "Business Development Manager"
+      ]
+    },
+    {
+      "name": "Design & Creative",
+      "roles": [
+        "UX/UI Designer",
+        "Graphic Designer",
+        "Product Designer",
+        "Creative Director",
+        "Video Editor",
+        "Motion Graphics Designer",
+        "Art Director",
+        "Interior Designer"
+      ]
+    },
+    {
+      "name": "Other",
+      "roles": [
+        "Project Manager",
+        "Consultant",
+        "Research Assistant",
+        "Operations Manager",
+        "Human Resources Manager",
+        "Legal Counsel",
+        "Customer Service Lead",
+        "Executive Assistant"
+      ]
+    }
+  ]
+}

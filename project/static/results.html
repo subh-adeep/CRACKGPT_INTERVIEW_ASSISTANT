@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Interview Results - AI Interview Assistant</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="results-container">
+      <header class="results-header">
+        <h1>📊 Interview Results</h1>
+        <div class="header-actions">
+          <button id="listenSummaryBtn" class="action-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3,9V15H7L12,20V4L7,9H3M16,9H14V15H16M19,9H17V15H19M22,9H20V15H22V9Z"/>
+            </svg>
+            Listen to Summary
+          </button>
+          <button id="downloadPdfBtn" class="action-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+            </svg>
+            Download PDF
+          </button>
+          <button id="newInterviewBtn" class="action-btn primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+            </svg>
+            New Interview
+          </button>
+        </div>
+      </header>
+
+      <!-- Overall Score -->
+      <div class="score-overview">
+        <div class="score-circle">
+          <div class="score-value" id="overallScore">--</div>
+          <div class="score-label">Overall Score</div>
+        </div>
+        <div class="score-breakdown">
+          <div class="score-item">
+            <div class="score-name">Communication</div>
+            <div class="score-bar">
+              <div class="score-fill" id="communicationScore" style="width: 0%"></div>
+            </div>
+            <div class="score-number" id="communicationScoreText">--/10</div>
+          </div>
+          <div class="score-item">
+            <div class="score-name">Technical Skills</div>
+            <div class="score-bar">
+              <div class="score-fill" id="technicalScore" style="width: 0%"></div>
+            </div>
+            <div class="score-number" id="technicalScoreText">--/10</div>
+          </div>
+          <div class="score-item">
+            <div class="score-name">Problem Solving</div>
+            <div class="score-bar">
+              <div class="score-fill" id="problemSolvingScore" style="width: 0%"></div>
+            </div>
+            <div class="score-number" id="problemSolvingScoreText">--/10</div>
+          </div>
+          <div class="score-item">
+            <div class="score-name">Job Fit</div>
+            <div class="score-bar">
+              <div class="score-fill" id="jobFitScore" style="width: 0%"></div>
+            </div>
+            <div class="score-number" id="jobFitScoreText">--/10</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Feedback Summary -->
+      <div class="feedback-summary">
+        <h2>🤖 AI Feedback Summary</h2>
+        <div id="summaryContent" class="summary-content">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Generating your personalized feedback...</p>
+          </div>
+        </div>
+        <div class="summary-audio-controls">
+          <button id="playPauseBtn" class="audio-control-btn" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="playIcon">
+              <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="pauseIcon" style="display: none;">
+              <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
+            </svg>
+          </button>
+          <div class="audio-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="audioProgress"></div>
+            </div>
+            <div class="time-display">
+              <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+      <!-- Recommended Actions -->
+      <div class="recommended-actions">
+        <h2>🎯 Recommended Next Steps</h2>
+        <div id="actionsContent" class="actions-content">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Generating personalized recommendations...</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <audio id="summaryPlayer" preload="none" style="display: none;"></audio>
+  <script src="/js/api.js"></script>
+  <script src="/js/results.js"></script>
+</body>
+</html>
