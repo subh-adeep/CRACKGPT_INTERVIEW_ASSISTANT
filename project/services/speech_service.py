@@ -243,9 +243,6 @@ class SpeechService:
         for n in studio_names[:5]:
             candidates.append({"language_code": LANG_TTS, "name": n})
 
-        # Language-only fallback: let Google select a default voice for LANG_TTS
-        candidates.append({"language_code": LANG_TTS, "name": None})
-
         last_err = None
         attempts = 0
         for c in candidates:

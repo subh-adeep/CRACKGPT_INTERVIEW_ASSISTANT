@@ -8,14 +8,14 @@ if env_path.exists():
     load_dotenv(dotenv_path=env_path)
 
 # Google Cloud Configuration
-PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT", "aids-476019")# write your project id here
+PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT", "aids-476019")
 LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
 USE_VERTEX = os.getenv("USE_VERTEX_AI", "0")
 
 # Speech Configuration
 LANG_STT = "en-IN"
-LANG_TTS = os.getenv("GOOGLE_TTS_LANGUAGE", "en-IN")
+LANG_TTS = os.getenv("GOOGLE_TTS_LANGUAGE", "en-US")
 VOICE_NAME = os.getenv("VOICE_NAME", "en-US-Studio-Q")
 
 # Coding Window Configuration

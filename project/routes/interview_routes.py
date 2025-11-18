@@ -6,7 +6,6 @@ from flask import Blueprint, request, jsonify
 import re
 
 from models.interview_state import interview_state
-from services.document_parser import extract_text
 from services.speech_service import SpeechService
 from services.ai_service import AIService
 from services.feedback_service import FeedbackService
@@ -48,15 +47,17 @@ def upload_documents():
         if 'resume' in request.files:
             f = request.files['resume']
             raw = f.read() or b""
-            resume_text = extract_text(raw, getattr(f, 'filename', '')) or ""
-            if not resume_text:
+            try:
+                resume_text = raw.decode('utf-8', errors='ignore')
+            except Exception:
                 resume_text = f"[Uploaded resume: {getattr(f, 'filename', 'unknown')} ({len(raw)} bytes)]"
 
         if 'job' in request.files:
             f = request.files['job']
             raw = f.read() or b""
-            job_text = extract_text(raw, getattr(f, 'filename', '')) or ""
-            if not job_text:
+            try:
+                job_text = raw.decode('utf-8', errors='ignore')
+            except Exception:
                 job_text = f"[Uploaded job description: {getattr(f, 'filename', 'unknown')} ({len(raw)} bytes)]"
 
         interview_state.context = f"=== RESUME ===\n{resume_text.strip()}\n\n=== JOB DESCRIPTION ===\n{job_text.strip()}"

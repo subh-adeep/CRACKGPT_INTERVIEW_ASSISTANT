@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let out = [];
         for (let j = start; j < lines.length; j++) {
             const s = lines[j].trim().toLowerCase();
-            const isNewHeading = /^(overview|strengths|areas for improvement|improvements|communication\s*&\s*clarity|technical\s*depth\s*&\s*problem\s*-\s*solving|actionable\s*next\s*steps|suggested\s*follow\s*-\s*up\s*questions|overall\s*rating|question analysis|coding assessment|recommendations|next steps)\b/.test(s);
+            const isNewHeading = /^(strengths|areas for improvement|improvements|question analysis|coding assessment|recommendations|next steps)\b/.test(s);
             if (isNewHeading) break;
             out.push(lines[j]);
         }
@@ -80,9 +80,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             renderSummaryText(data.feedback || '');
 
-            const nextSteps = extractSection(data.feedback, 'Actionable Next Steps');
-            const nextStepBullets = (nextSteps || '').split('\n').filter(x => /^[-*]\s+/.test(x)).map(x => x.replace(/^[-*]\s+/, ''));
-            renderBullets('actionsContent', nextStepBullets);
+            const strengths = extractSection(data.feedback, 'Strengths');
+            const improvements = extractSection(data.feedback, 'Areas for Improvement');
+            const questions = extractSection(data.feedback, 'Question Analysis');
+            const coding = extractSection(data.feedback, 'Coding Assessment');
+            renderSection('strengthsContent', strengths);
+            renderSection('improvementsContent', improvements);
+            renderSection('questionsContent', questions);
+            renderSection('codingContent', coding);
 
             if (data.spoken_summary) {
                 summaryPlayer.src = data.spoken_summary;
@@ -197,8 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const shouldReset = urlParams.get('reset') === '1';
         if (!shouldReset && !document.referrer.includes('/interview')) {}
     }
-
-    
 });
 
 // **GLOBAL RESET FUNCTION** - Call this on any page refresh across the app
@@ -224,28 +227,3 @@ window.addEventListener('pageshow', function(event) {
 window.addEventListener('beforeunload', function() {});
 
 window.addEventListener('load', function() {});
-    function extractBullets(sectionText, which) {
-        const lines = (sectionText || '').split('\n').map(x => x.trim());
-        let startLabel = which === 'improvements' ? 'improvements:' : which === 'positives' ? 'positives:' : null;
-        let collecting = startLabel ? false : true;
-        const out = [];
-        for (let i = 0; i < lines.length; i++) {
-            const s = lines[i].toLowerCase();
-            if (!startLabel) {
-                if (/^(positives:|improvements:)/.test(s)) collecting = true;
-            } else {
-                if (s.startsWith(startLabel)) { collecting = true; continue; }
-                if (/^(positives:|improvements:|rating:)/.test(s)) {
-                    if (collecting) break;
-                }
-            }
-            if (collecting && /^[-*]\s+/.test(lines[i])) out.push(lines[i].replace(/^[-*]\s+/, ''));
-        }
-        return out;
-    }
-
-    function renderBullets(elId, bullets, emptyText) {
-        const el = document.getElementById(elId);
-        if (!bullets || bullets.length === 0) { el.innerHTML = `<p>${emptyText || 'No data available.'}</p>`; return; }
-        el.innerHTML = '<ul>' + bullets.map(b => `<li>${b}</li>`).join('') + '</ul>';
-    }

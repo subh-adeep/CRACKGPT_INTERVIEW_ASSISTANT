@@ -1,0 +1,11 @@
+AI Feedback
+
+Overview
+The candidate struggled significantly with clear communication and providing detailed technical explanations. They repeatedly declined to discuss projects, limiting assessment of practical application. Technical understanding was high-level, lacking depth in key areas like Transformers and RAG.
+
+Strengths
+Positives:
+- Expressed passion for Python as a primary language.
+- Identified Mamba as 2x faster than S4 in comparison.
+- Understood high-level components of Transformer (encoder/decoder).
+- Understood RAG as

@@ -100,8 +100,77 @@
         </div>
       </div>
 
-      
+      <!-- Detailed Feedback -->
+      <div class="detailed-feedback">
+        <h2>📋 Detailed Analysis</h2>
+        <div class="feedback-tabs">
+          <button class="tab-btn active" data-tab="strengths">Strengths</button>
+          <button class="tab-btn" data-tab="improvements">Areas for Improvement</button>
+          <button class="tab-btn" data-tab="questions">Question Analysis</button>
+          <button class="tab-btn" data-tab="coding">Coding Assessment</button>
+        </div>
 
+        <div class="tab-content">
+          <div id="strengthsTab" class="tab-pane active">
+            <div id="strengthsContent" class="feedback-content">
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading strengths analysis...</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="improvementsTab" class="tab-pane">
+            <div id="improvementsContent" class="feedback-content">
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading improvement suggestions...</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="questionsTab" class="tab-pane">
+            <div id="questionsContent" class="feedback-content">
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading question analysis...</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="codingTab" class="tab-pane">
+            <div id="codingContent" class="feedback-content">
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading coding assessment...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interview Statistics -->
+      <div class="interview-stats">
+        <h2>📈 Interview Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="interviewDuration">--:--</div>
+            <div class="stat-label">Total Duration</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="questionsAnswered">--</div>
+            <div class="stat-label">Questions Answered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="averageResponseTime">--s</div>
+            <div class="stat-label">Avg. Response Time</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="talkRatio">--%</div>
+            <div class="stat-label">Talk Ratio</div>
+          </div>
+        </div>
+      </div>
 
       <!-- Recommended Actions -->
       <div class="recommended-actions">
