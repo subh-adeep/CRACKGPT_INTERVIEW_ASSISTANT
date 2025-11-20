@@ -1,3 +1,4 @@
+ ## Team 18 ADSAI Project
 
 - `GOOGLE_CLOUD_PROJECT`: the Google Console Project ID (used by STT/TTS and Vertex).
 - `USE_VERTEX_AI`: set to `1` to use Vertex AI via ADC; keep `0` to use AI Studio API key.
